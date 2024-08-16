@@ -23,17 +23,6 @@ typedef pair<int, int> p32;
 typedef pair<ll, ll> p64;
 typedef pair<double, double> pdd;
 typedef vector<int> v32;
-<<<<<<< HEAD
-typedef vector<vector<int>> vv32;
-typedef vector<ll> v64;
-typedef vector<vector<ll>> vv64;
-typedef vector<p32> vp32;
-typedef vector<vector<p32>> vvp32;
-typedef vector<p64> vp64;
-typedef vector<vector<p64>> vvp64;
-typedef vector<bool> vb;
-typedef vector<vector<bool>> vvb;
-=======
 typedef vector<vector<int> > vv32;
 typedef vector<ll> v64;
 typedef vector<vector<ll> > vv64;
@@ -43,51 +32,36 @@ typedef vector<p64> vp64;
 typedef vector<vector<p64> > vvp64;
 typedef vector<bool> vb;
 typedef vector<vector<bool> > vvb;
->>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
 
 int pop_cnt(ll mask) { return __builtin_popcountll(mask); }
 int ctz(ull mask) { return __builtin_ctzll(mask); }
 int logOf(ull mask) { return 63 - __builtin_clzll(mask); }
 
-const ll mod = (ll)(1e9+7);
+const ll mod = (ll)(1e9 + 7);
 const ll inf = (ll)(2e18);
 
 void sol()
 {
-    int n; cin >> n;
-<<<<<<< HEAD
-    v64 a(n), b(n);
-    for (int i=0; i<n; i++) cin >> a[i];
-    for (int i=0; i<n; i++) cin >> b[i];
+    int l, L, r, R;
+    cin >> l >> r >> L >> R;
 
-    if (a == b)
-=======
-    v32 a(n), b(n);
-    for (int i=0; i<n; i++) cin >> a[i];
-    for (int i=0; i<n; i++) cin >> b[i];
-    if (a == b) 
->>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
+    if (r < L || l > R)
     {
-        cout << "Bob" << el;
+        cout << 1 << el;
         return;
     }
-    reverse(all(b));
-<<<<<<< HEAD
-    cout << (a == b ? "Bob\n" : "Alice\n");
-=======
-    if (a == b)
-    {
-        cout << "Bob" << el;
-        return;
-    }
-    cout << "Alice" << el;
->>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
+
+    int ans = 0;
+    ans = ((min(R, r)-max(L, l) >= 0) ? ((l < L || l > L ? 1 : 0) + (r < R || r > R ? 1 : 0)) : 0);
+    cout << ans + max(0, min(R, r) - max(L, l)) << el;
 }
 
 int32_t main()
 {
     io();
-    int t; cin >> t;
-    while (t--) sol();
-    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
+    int t;
+    cin >> t;
+    while (t--)
+        sol();
+    cerr << "\nTime elapsed: " << 1000 * clock() / CLOCKS_PER_SEC << "ms\n";
 }

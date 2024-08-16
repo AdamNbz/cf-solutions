@@ -14,6 +14,9 @@
         "valarray": "cpp",
         "vector": "cpp",
         "deque": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "limits": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp"
     }
 }

@@ -13,6 +13,7 @@
 #define sz(x) ((ll)(x).size())
 #define mask(i) (1LL << (i))
 #define getbit(mask, i) (((mask) >> (i)) & 1)
+#define int long long 
 
 using namespace std;
 
@@ -23,17 +24,6 @@ typedef pair<int, int> p32;
 typedef pair<ll, ll> p64;
 typedef pair<double, double> pdd;
 typedef vector<int> v32;
-<<<<<<< HEAD
-typedef vector<vector<int>> vv32;
-typedef vector<ll> v64;
-typedef vector<vector<ll>> vv64;
-typedef vector<p32> vp32;
-typedef vector<vector<p32>> vvp32;
-typedef vector<p64> vp64;
-typedef vector<vector<p64>> vvp64;
-typedef vector<bool> vb;
-typedef vector<vector<bool>> vvb;
-=======
 typedef vector<vector<int> > vv32;
 typedef vector<ll> v64;
 typedef vector<vector<ll> > vv64;
@@ -43,7 +33,6 @@ typedef vector<p64> vp64;
 typedef vector<vector<p64> > vvp64;
 typedef vector<bool> vb;
 typedef vector<vector<bool> > vvb;
->>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
 
 int pop_cnt(ll mask) { return __builtin_popcountll(mask); }
 int ctz(ull mask) { return __builtin_ctzll(mask); }
@@ -54,34 +43,26 @@ const ll inf = (ll)(2e18);
 
 void sol()
 {
-    int n; cin >> n;
-<<<<<<< HEAD
-    v64 a(n), b(n);
+    int n, k; cin >> n >> k;
+    v64 a(n);
     for (int i=0; i<n; i++) cin >> a[i];
-    for (int i=0; i<n; i++) cin >> b[i];
 
-    if (a == b)
-=======
-    v32 a(n), b(n);
-    for (int i=0; i<n; i++) cin >> a[i];
-    for (int i=0; i<n; i++) cin >> b[i];
-    if (a == b) 
->>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
+    sort(all(a), greater<int>());
+    for (int i=1; i<n; i+=2)
     {
-        cout << "Bob" << el;
-        return;
+        if (k <= 0) break;
+        int mid = min(k, a[i-1]-a[i]);
+        a[i] += mid;
+        k -= mid;
     }
-    reverse(all(b));
-<<<<<<< HEAD
-    cout << (a == b ? "Bob\n" : "Alice\n");
-=======
-    if (a == b)
-    {
-        cout << "Bob" << el;
-        return;
-    }
-    cout << "Alice" << el;
->>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
+
+    //debug
+    //for (int i=0; i<n; i++) cout << a[i] << " ";
+    //cout << el;
+    int ans = 0;
+    for (int i=1; i<n; i+=2) ans += (a[i-1]-a[i]);
+    if (n%2) ans += a[n-1];
+    cout << ans << el;
 }
 
 int32_t main()

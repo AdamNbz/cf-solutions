@@ -23,6 +23,7 @@ typedef pair<int, int> p32;
 typedef pair<ll, ll> p64;
 typedef pair<double, double> pdd;
 typedef vector<int> v32;
+<<<<<<< HEAD
 typedef vector<vector<int>> vv32;
 typedef vector<ll> v64;
 typedef vector<vector<ll>> vv64;
@@ -32,6 +33,17 @@ typedef vector<p64> vp64;
 typedef vector<vector<p64>> vvp64;
 typedef vector<bool> vb;
 typedef vector<vector<bool>> vvb;
+=======
+typedef vector<vector<int> > vv32;
+typedef vector<ll> v64;
+typedef vector<vector<ll> > vv64;
+typedef vector<p32> vp32;
+typedef vector<vector<p32> > vvp32;
+typedef vector<p64> vp64;
+typedef vector<vector<p64> > vvp64;
+typedef vector<bool> vb;
+typedef vector<vector<bool> > vvb;
+>>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
 
 int pop_cnt(ll mask) { return __builtin_popcountll(mask); }
 int ctz(ull mask) { return __builtin_ctzll(mask); }
@@ -43,6 +55,7 @@ const ll inf = (ll)(2e18);
 void sol()
 {
     int n; cin >> n;
+<<<<<<< HEAD
     vp64 a(n);
     for (int i=0; i<n; i++) cin >> a[i].fi >> a[i].se;
     p64 s, t;
@@ -53,6 +66,23 @@ void sol()
     ll mnN = 4*inf;
     for (int i=0; i<n; i++) mnN = min(mnN, 1LL*((t.fi-a[i].fi)*(t.fi-a[i].fi) + (t.se-a[i].se)*(t.se-a[i].se)));
     cout << (mnN > len ? "YES\n" : "NO\n");
+=======
+    vp64 circle(n);
+    for (int i=0; i<n; i++) cin >> circle[i].fi >> circle[i].se;
+    p64 s, t; cin >> s.fi >> s.se >> t.fi >> t.se;
+    ll mn = INT_MAX, dist = (s.fi-t.fi)*(s.fi-t.fi)+(s.se-t.se)*(s.se-t.se);
+    bool ok = 1;
+    for (int i=0; i<n; i++) 
+    {
+        ll len = (circle[i].fi-t.fi)*(circle[i].fi-t.fi)+(circle[i].se-t.se)*(circle[i].se-t.se);
+        if (len <= dist)
+        {
+            ok = 0;
+            break;
+        }
+    }
+    cout << (ok ? "YES\n" : "NO\n");
+>>>>>>> 69868d72139a56ed7ada27757160d11d8c3e4238
 }
 
 int32_t main()
