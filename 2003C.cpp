@@ -13,7 +13,6 @@
 #define sz(x) ((ll)(x).size())
 #define mask(i) (1LL << (i))
 #define getbit(mask, i) (((mask) >> (i)) & 1)
-#define int long long
 
 using namespace std;
 
@@ -39,62 +38,31 @@ int ctz(ull mask) { return __builtin_ctzll(mask); }
 int logOf(ull mask) { return 63 - __builtin_clzll(mask); }
 
 const ll mod = (ll)(1e9+7);
-const ll inf = (ll)(1e18);
+const ll inf = (ll)(2e18);
 
 void sol()
 {
-    int n, k; cin >> n >> k;
-    v64 a(n), b(n);
-    for (int i=0; i<n; i++) cin >> a[i];
-    for (int i=0; i<n; i++) cin >> b[i];
-    
-    v64 c(n);
-    iota(all(c), 0);
-    sort(all(c), [&](int x, int y)
+    int n; cin >> n;
+    string s; cin >> s;
+    map<char, int> cnt;
+    for (int i=0; i<n; i++) cnt[s[i]]++;
+    int i = 0;
+    while (1)
     {
-        return a[x] > a[y];
-    });
-    
-    ll needy = ((n-1)>>1)+1, l = 0, r = 1e10;
-    while (l < r)
-    {
-        ll m = l+r+1>>1;
-        bool check = 0;
-        for (auto x: c)
+        bool ok = 0;
+        for (auto &x: cnt)
         {
-            if (b[x])
+            if (x.se > 0)
             {
-                if (a[x] + k >= m) check = 1;
-                ll tmp = m-a[x]-k, req = needy;
-                for (auto y: c)
-                {
-                    if (y == x) continue;
-                    if (!req) break;
-                    if (a[y] >= tmp) req--;
-                }
-                if (!req) check = 1;
-                break;
+                ok = 1;
+                s[i++] = x.fi;
+                x.se--;
+                if (i == n) i = 1;
             }
         }
-        for (auto x: c)
-        {
-            if (!b[x])
-            {
-                ll req = needy, sum = 0, tmp = m-a[x];
-                for (auto y: c)
-                {
-                    if (y == x) continue;
-                    if (!req) break;
-                    if (a[y] >= tmp) req--;
-                    else if (b[y]) sum += tmp - a[y], req--;
-                }
-                if (!req && sum <= k) check = 1;
-                break;
-            }
-        }
-        (check) ? l = m : r = m-1;
+        if (!ok) break;
     }
-    cout << l << el;
+    cout << s << el;
 }
 
 int32_t main()
