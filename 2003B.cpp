@@ -23,15 +23,15 @@ typedef pair<int, int> p32;
 typedef pair<ll, ll> p64;
 typedef pair<double, double> pdd;
 typedef vector<int> v32;
-typedef vector<vector<int>> vv32;
+typedef vector<vector<int> > vv32;
 typedef vector<ll> v64;
-typedef vector<vector<ll>> vv64;
+typedef vector<vector<ll> > vv64;
 typedef vector<p32> vp32;
-typedef vector<vector<p32>> vvp32;
+typedef vector<vector<p32> > vvp32;
 typedef vector<p64> vp64;
-typedef vector<vector<p64>> vvp64;
+typedef vector<vector<p64> > vvp64;
 typedef vector<bool> vb;
-typedef vector<vector<bool>> vvb;
+typedef vector<vector<bool> > vvb;
 
 int pop_cnt(ll mask) { return __builtin_popcountll(mask); }
 int ctz(ull mask) { return __builtin_ctzll(mask); }
