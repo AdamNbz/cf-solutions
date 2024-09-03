@@ -20,6 +20,10 @@
         "list": "cpp",
         "__split_buffer": "cpp",
         "queue": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "iosfwd": "cpp",
+        "barrier": "cpp",
+        "latch": "cpp",
+        "semaphore": "cpp"
     }
 }
