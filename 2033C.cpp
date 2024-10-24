@@ -57,31 +57,14 @@ void sol()
     for (int i = 1; i <= n; ++i)
         cin >> a[i];
     int ans = 0;
-
-    for (int i = 1; i < n; ++i) 
-        if (a[i] == a[i + 1]) ans++;
-    
-    for (int i = n / 2; i >= 1; --i) {
-        int j = n - i + 1;
-        int d = 0;
-        v32 positions = {i - 1, i, j - 1, j};
-        v32 pre, post;
-
-        for (int pos : positions) 
-            if (pos >= 1 && pos < n) pre.pb(a[pos] == a[pos + 1]);
-            else pre.pb(0);
-
-        swap(a[i], a[j]);
-
-        for (int idx = 0; idx < sz(positions); ++idx) {
-            int pos = positions[idx];
-            if (pos >= 1 && pos < n) post.pb(a[pos] == a[pos + 1]);
-            else post.pb(0);
-            d += pre[idx] - post[idx];
-        }
-
-        if (d > 0) ans -= d;
-        else swap(a[i], a[j]);
+    for (int i=1; i<=n/2; i++)
+    {
+        int j = n-i+1;
+        if (a[i] == a[i-1] || a[j] == a[j+1]) swap(a[i], a[j]);
+    }
+    for (int i=1; i<=n-1; i++)
+    {
+        if (a[i] == a[i+1]) ans++;
     }
     cout << ans << el;
 }
