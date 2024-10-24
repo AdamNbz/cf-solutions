@@ -52,7 +52,7 @@ int logOf(ull mask) { return 63 - __builtin_clzll(mask); }
 const ll mod = (ll)(1e9+7);
 const ll inf = (ll)(2e18);
 
-void compute_pisano_period(int k, int &pisano_period, v32 &positions) {
+void compute(int k, int &pisano_period, v32 &positions) {
     if (k == 1) {
         pisano_period = 1;
         positions.push_back(1);
@@ -87,7 +87,7 @@ void sol()
     {
         ll pis = 0;
         v64 positions;
-        compute_pisano_period(k, pis, positions);
+        compute(k, pis, positions);
         if (positions.empty()) positions.pb(-1);
         pisano[k] = pis;
         pos[k] = positions;
@@ -106,7 +106,7 @@ void sol()
         ll full = (n-1)/c, rem = (n-1)%c;
         ll ans = (full*len)%mod;
         ans = (ans+positions[rem])%mod;
-        cout << ans%mod << el;
+        cout << ans << el;
     }
 }
 
