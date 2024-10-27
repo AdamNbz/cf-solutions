@@ -1,4 +1,3 @@
-
 /*
 Author : Nguyen Vo Ngoc Bao
 School : University of Information Technology, VNU-HCM
@@ -7,6 +6,12 @@ School : University of Information Technology, VNU-HCM
 
 #pragma GCC optimize("Ofast")
 #pragma GCC optimize("unroll-loops")
+
+#ifndef ONLINE_JUDGE
+#include </Users/home/Documents/nbz_lib/debug.h>
+#else
+#define dbg(...) 
+#endif
 
 #define fi first
 #define se second
@@ -53,17 +58,17 @@ const ll inf = (ll)(2e18);
 
 void sol()
 {
-    ll n; int k;
-    cin >> n >> k;
-    int a = 1%k, b = 1%k, m = 1;
-    while (a)
+    int n; cin >> n;
+    v64 a(n);
+    for (auto &x: a) cin >> x;
+    ll ans = n;
+    for (int i=0; i<n; i++)
     {
-        int c = (a+b)%k;
-        a = b;
-        b = c;
-        m++;
+        int crr = i;
+        for (int j=i; j<n; j++) if (a[j] > a[i]) crr++;
+        ans = min(ans, 1ll*crr);
     }
-    cout << (n%mod)*(m%mod)%mod << el;
+    cout << ans << el;
 }
 
 int32_t main()
