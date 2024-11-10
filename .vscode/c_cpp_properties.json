@@ -19,16 +19,24 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "/Users/home/Documents/File Code/C++/Codeforces/cf-solutions/**"
             ],
             "defines": [],
             "macFrameworkPath": [
                 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
-            "compilerPath": "/opt/homebrew/bin/g++-14",
+            "compilerPath": "/usr/bin/g++",
             "cStandard": "c23",
             "cppStandard": "c++23",
-            "intelliSenseMode": "macos-clang-arm64"
+            "intelliSenseMode": "macos-gcc-arm64",
+            "mergeConfigurations": false,
+            "browse": {
+                "path": [
+                    "/Users/home/Documents/File Code/C++/Codeforces/cf-solutions/**",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
         }
     ],
     "version": 4
