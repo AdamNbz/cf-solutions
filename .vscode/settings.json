@@ -44,6 +44,7 @@
         "streambuf": "cpp",
         "tuple": "cpp",
         "variant": "cpp",
-        "execution": "cpp"
+        "execution": "cpp",
+        "stack": "cpp"
     }
 }

@@ -7,11 +7,11 @@ School : University of Information Technology, VNU-HCM
 #pragma GCC optimize("Ofast")
 #pragma GCC optimize("unroll-loops")
 
-// #ifndef ONLINE_JUDGE
-// #include </Users/home/Documents/nbz_lib/debug.h>
-// #else
-// #define dbg(...) 
-// #endif
+#ifndef ONLINE_JUDGE
+#include </Users/home/Documents/nbz_lib/debug.h>
+#else
+#define dbg(...) 
+#endif
 
 #define fi first
 #define se second
