@@ -52,20 +52,21 @@ int parity(ull mask) { return __builtin_parityll(mask); }
 const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
 
+ll ceildiv(ll x, ll y)
+{
+    if (y < 0) x = -x, y = -y;
+    return x <= 0 ? x/y : (x-1)/y+1;
+}
+
 void sol()
 {
     int n; cin >> n;
-    v32 a(n), f(n+1, 0);
-    for (auto &x: a) cin >> x, f[x]++;
-    sort(all(a));
-    ll ans = 0;
-    for (int i=0; i<n; i++)
-    {
-        if (i%2 || f[a[i]] == 0) continue;
-        if (f[a[i]] == 1) ans+=2, f[a[i]] = 0;
-        else ans++, f[a[i]] = 0;
-    }
-    cout << ans << el;
+    v32 a(n);
+    map<int,int> cnt;
+    for (auto &x: a) cin >> x, cnt[x]++;
+    ll ans=0, sum=0;
+    for (auto x: cnt) (x.se == 1 ? sum++ : ans++);
+    cout << ans + 2*ceildiv(sum, 2) << el;
 }
 
 int32_t main()
