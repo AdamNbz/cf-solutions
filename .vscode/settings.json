@@ -45,6 +45,7 @@
         "tuple": "cpp",
         "variant": "cpp",
         "execution": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "type_traits": "cpp"
     }
 }

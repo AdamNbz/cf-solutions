@@ -20,10 +20,6 @@ School : University of Information Technology, VNU-HCM
 
 using namespace std;
 
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
-
 typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
@@ -45,141 +41,166 @@ typedef vector<vs > vvs;
 
 template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
 template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
-template<class T> 
-using ordered_set = tree<
-    T, null_type, less<T>,
-    rb_tree_tag,
-    tree_order_statistics_node_update
->;
-
-mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
-
-int pop_cnt(ll mask) { return __builtin_popcountll(mask); }
-int ctz(ull mask) { return __builtin_ctzll(mask); }
-int logOf(ull mask) { return 63 - __builtin_clzll(mask); }
-int parity(ull mask) { return __builtin_parityll(mask); }
+template <typename T>
+T inverse(T a, T m) {
+  T u = 0, v = 1;
+  while (a != 0) {
+    T t = m / a;
+    m -= t * a; swap(a, m);
+    u -= t * v; swap(u, v);
+  }
+  assert(m == 1);
+  return u;
+}
+ 
+template <typename T>
+class Modular {
+ public:
+  using Type = typename decay<decltype(T::value)>::type;
+ 
+  constexpr Modular() : value() {}
+  template <typename U>
+  Modular(const U& x) {
+    value = normalize(x);
+  }
+ 
+  template <typename U>
+  static Type normalize(const U& x) {
+    Type v;
+    if (-mod() <= x && x < mod()) v = static_cast<Type>(x);
+    else v = static_cast<Type>(x % mod());
+    if (v < 0) v += mod();
+    return v;
+  }
+ 
+  const Type& operator()() const { return value; }
+  template <typename U>
+  explicit operator U() const { return static_cast<U>(value); }
+  constexpr static Type mod() { return T::value; }
+ 
+  Modular& operator+=(const Modular& other) { if ((value += other.value) >= mod()) value -= mod(); return *this; }
+  Modular& operator-=(const Modular& other) { if ((value -= other.value) < 0) value += mod(); return *this; }
+  template <typename U> Modular& operator+=(const U& other) { return *this += Modular(other); }
+  template <typename U> Modular& operator-=(const U& other) { return *this -= Modular(other); }
+  Modular& operator++() { return *this += 1; }
+  Modular& operator--() { return *this -= 1; }
+  Modular operator++(int) { Modular result(*this); *this += 1; return result; }
+  Modular operator--(int) { Modular result(*this); *this -= 1; return result; }
+  Modular operator-() const { return Modular(-value); }
+ 
+  template <typename U = T>
+  typename enable_if<is_same<typename Modular<U>::Type, int>::value, Modular>::type& operator*=(const Modular& rhs) {
+#ifdef _WIN32
+    uint64_t x = static_cast<int64_t>(value) * static_cast<int64_t>(rhs.value);
+    uint32_t xh = static_cast<uint32_t>(x >> 32), xl = static_cast<uint32_t>(x), d, m;
+    asm(
+      "divl %4; \n\t"
+      : "=a" (d), "=d" (m)
+      : "d" (xh), "a" (xl), "r" (mod())
+    );
+    value = m;
+#else
+    value = normalize(static_cast<int64_t>(value) * static_cast<int64_t>(rhs.value));
+#endif
+    return *this;
+  }
+  template <typename U = T>
+  typename enable_if<is_same<typename Modular<U>::Type, long long>::value, Modular>::type& operator*=(const Modular& rhs) {
+    long long q = static_cast<long long>(static_cast<long double>(value) * rhs.value / mod());
+    value = normalize(value * rhs.value - q * mod());
+    return *this;
+  }
+  template <typename U = T>
+  typename enable_if<!is_integral<typename Modular<U>::Type>::value, Modular>::type& operator*=(const Modular& rhs) {
+    value = normalize(value * rhs.value);
+    return *this;
+  }
+ 
+  Modular& operator/=(const Modular& other) { return *this *= Modular(inverse(other.value, mod())); }
+ 
+  friend const Type& abs(const Modular& x) { return x.value; }
+ 
+  template <typename U>
+  friend bool operator==(const Modular<U>& lhs, const Modular<U>& rhs);
+ 
+  template <typename U>
+  friend bool operator<(const Modular<U>& lhs, const Modular<U>& rhs);
+ 
+  template <typename V, typename U>
+  friend V& operator>>(V& stream, Modular<U>& number);
+ 
+ private:
+  Type value;
+};
+ 
+template <typename T> bool operator==(const Modular<T>& lhs, const Modular<T>& rhs) { return lhs.value == rhs.value; }
+template <typename T, typename U> bool operator==(const Modular<T>& lhs, U rhs) { return lhs == Modular<T>(rhs); }
+template <typename T, typename U> bool operator==(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) == rhs; }
+ 
+template <typename T> bool operator!=(const Modular<T>& lhs, const Modular<T>& rhs) { return !(lhs == rhs); }
+template <typename T, typename U> bool operator!=(const Modular<T>& lhs, U rhs) { return !(lhs == rhs); }
+template <typename T, typename U> bool operator!=(U lhs, const Modular<T>& rhs) { return !(lhs == rhs); }
+ 
+template <typename T> bool operator<(const Modular<T>& lhs, const Modular<T>& rhs) { return lhs.value < rhs.value; }
+ 
+template <typename T> Modular<T> operator+(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) += rhs; }
+template <typename T, typename U> Modular<T> operator+(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) += rhs; }
+template <typename T, typename U> Modular<T> operator+(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) += rhs; }
+ 
+template <typename T> Modular<T> operator-(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) -= rhs; }
+template <typename T, typename U> Modular<T> operator-(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) -= rhs; }
+template <typename T, typename U> Modular<T> operator-(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) -= rhs; }
+ 
+template <typename T> Modular<T> operator*(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) *= rhs; }
+template <typename T, typename U> Modular<T> operator*(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) *= rhs; }
+template <typename T, typename U> Modular<T> operator*(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) *= rhs; }
+ 
+template <typename T> Modular<T> operator/(const Modular<T>& lhs, const Modular<T>& rhs) { return Modular<T>(lhs) /= rhs; }
+template <typename T, typename U> Modular<T> operator/(const Modular<T>& lhs, U rhs) { return Modular<T>(lhs) /= rhs; }
+template <typename T, typename U> Modular<T> operator/(U lhs, const Modular<T>& rhs) { return Modular<T>(lhs) /= rhs; }
+ 
+template<typename T, typename U>
+Modular<T> power(const Modular<T>& a, const U& b) {
+  assert(b >= 0);
+  Modular<T> x = a, res = 1;
+  U p = b;
+  while (p > 0) {
+    if (p & 1) res *= x;
+    x *= x;
+    p >>= 1;
+  }
+  return res;
+}
+ 
+template <typename T>
+bool IsZero(const Modular<T>& number) {
+  return number() == 0;
+}
+ 
+template <typename T>
+string to_string(const Modular<T>& number) {
+  return to_string(number());
+}
+ 
+// U == std::ostream? but done this way because of fastoutput
+template <typename U, typename T>
+U& operator<<(U& stream, const Modular<T>& number) {
+  return stream << number();
+}
+ 
+// U == std::istream? but done this way because of fastinput
+template <typename U, typename T>
+U& operator>>(U& stream, Modular<T>& number) {
+  typename common_type<typename Modular<T>::Type, long long>::type x;
+  stream >> x;
+  number.value = Modular<T>::normalize(x);
+  return stream;
+}
 
 static const ll MOD = 998244353;
 const ll inf = numeric_limits<ll>::max();
 
-inline ll modmul(ll a, ll b){
-    return ((a % MOD) * (b % MOD)) % MOD;
-}
-
-struct SegTree {
-    int n;
-    vector<ll> tree;
-    SegTree(int n_){
-        n=1; 
-        while(n<n_) n<<=1;
-        tree.assign(n<<1,1LL);
-    }
-    void build(const vector<ll> &arr){
-        for(int i=0;i<(int)arr.size();i++){
-            tree[n+i] = (arr[i] % MOD);
-        }
-        for(int i=n-1; i>=1; i--){
-            tree[i] = modmul(tree[i<<1], tree[i<<1|1]);
-        }
-    }
-    void update(int idx, ll val){
-        idx += n;
-        tree[idx] = (val % MOD);
-        idx >>=1;
-        while(idx>=1){
-            tree[idx] = modmul(tree[idx<<1], tree[idx<<1|1]);
-            idx>>=1;
-        }
-    }
-    ll queryAll(){
-        return tree[1];
-    }
-};
- 
-struct DynamicMinProd {
-    int n;
-    ordered_set< pair<ll,int> > dsA, dsB;
-    SegTree segt;
-    vector<ll> M;
-    vector<ll> crrA, crrB;
- 
-    DynamicMinProd(int n_):n(n_), segt(n_){
-        M.resize(n,1LL);
-        crrA.assign(n,0LL);
-        crrB.assign(n,0LL);
-    }
-    int getRankA(ll val, int idx){
-        return (int) dsA.order_of_key({val, idx});
-    }
-    int getRankB(ll val, int idx){
-        return (int) dsB.order_of_key({val, idx});
-    }
-    ll getValA(int r){
-        auto it = dsA.find_by_order(r);
-        return it->first;
-    }
-    ll getValB(int r){
-        auto it = dsB.find_by_order(r);
-        return it->first;
-    }
-    void build(const vector<ll> &a, const vector<ll> &b){
-        for(int i=0;i<n;i++){
-            dsA.insert({a[i], i});
-            dsB.insert({b[i], i});
-            crrA[i] = a[i];
-            crrB[i] = b[i];
-        }
-        for(int k=0; k<n; k++){
-            ll vA = getValA(k);
-            ll vB = getValB(k);
-            M[k] = min(vA, vB);
-        }
-        segt.build(M);
-    }
-    void recalcRange(int L, int R){
-        if(R < 0 || L >= n) return;
-        if(L<0) L=0; 
-        if(R>=n) R=n-1;
-        if(L>R) return;
- 
-        for(int k=L; k<=R; k++){
-            ll vA = getValA(k);
-            ll vB = getValB(k);
-            ll newMin = min(vA,vB);
-            if(newMin != M[k]){
-                M[k] = newMin;
-                segt.update(k, newMin);
-            }
-        }
-    }
-    void updA(int x){
-        ll oldVal = crrA[x];
-        ll newVal = oldVal + 1;
-        crrA[x] = newVal;
-        int rOld = getRankA(oldVal,x);
-        dsA.erase({oldVal,x});
-        dsA.insert({newVal,x});
-        int rNew = getRankA(newVal,x);
- 
-        if(rOld>rNew) swap(rOld,rNew);
-        recalcRange(rOld, rNew);
-    }
-    void updB(int x){
-        ll oldVal = crrB[x];
-        ll newVal = oldVal + 1;
-        crrB[x] = newVal;
-        int rOld = getRankB(oldVal,x);
-        dsB.erase({oldVal,x});
-        dsB.insert({newVal,x});
-        int rNew = getRankB(newVal,x);
- 
-        if(rOld>rNew) swap(rOld,rNew);
-        recalcRange(rOld,rNew);
-    }
-    ll getProduct(){
-        return segt.queryAll();
-    }
-};
+using Mint = Modular<std::integral_constant<decay<decltype(MOD)>::type, MOD>>;
 
 void sol()
 {
@@ -187,19 +208,34 @@ void sol()
     v64 a(n), b(n);
     for (auto &x: a) cin >> x;
     for (auto &x: b) cin >> x;
-    DynamicMinProd dmp(n);
-    dmp.build(a, b);
-    ll ans = dmp.getProduct();
-    cout << ans%MOD << " ";
+    auto A = a, B = b;
+    sort(all(A));
+    sort(all(B));
+    Mint ans = 1;
+    for (int i=0; i<n; i++) ans *= min(A[i], B[i]);
+    cout << ans << " ";
     while (q--)
     {
-        int o; ll x; cin >> o >> x;
+        int o, x; cin >> o >> x;
         x--;
-        ll oldmn = min(a[x], b[x]);
-        if (o == 1) dmp.updA((int)x);
-        else dmp.updB((int)x);
-        ll ret = dmp.getProduct();
-        cout << ret%MOD << " ";
+        int val = (o==1?a[x]:b[x]);
+        if (o==1) a[x]++;
+        else b[x]++;
+        if (o==1)
+        {
+            x = upper_bound(all(A), val)-A.begin()-1;
+            ans /= min(A[x], B[x]);
+            A[x]++;
+            ans *= min(A[x], B[x]);
+        }
+        else
+        {
+            x = upper_bound(all(B), val)-B.begin()-1;
+            ans /= min(A[x], B[x]);
+            B[x]++;
+            ans *= min(A[x], B[x]);
+        }
+        cout << ans << " ";
     }
     cout << el;
 }
