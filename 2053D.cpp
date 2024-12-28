@@ -47,7 +47,7 @@ template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
 template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
 template<class T> 
 using ordered_set = tree<
-    T, null_type, std::less<T>,
+    T, null_type, less<T>,
     rb_tree_tag,
     tree_order_statistics_node_update
 >;
@@ -132,7 +132,7 @@ struct DynamicMinProd {
         for(int k=0; k<n; k++){
             ll vA = getValA(k);
             ll vB = getValB(k);
-            M[k] = std::min(vA, vB);
+            M[k] = min(vA, vB);
         }
         segt.build(M);
     }
@@ -145,7 +145,7 @@ struct DynamicMinProd {
         for(int k=L; k<=R; k++){
             ll vA = getValA(k);
             ll vB = getValB(k);
-            ll newMin = std::min(vA,vB);
+            ll newMin = min(vA,vB);
             if(newMin != M[k]){
                 M[k] = newMin;
                 segt.update(k, newMin);
