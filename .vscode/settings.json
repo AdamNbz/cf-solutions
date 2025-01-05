@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "*.ndjson": "jsonl",
+        "*.dbclient-js": "javascript",
         "iostream": "cpp",
         "random": "cpp",
         "bitset": "cpp",
@@ -46,6 +48,7 @@
         "variant": "cpp",
         "execution": "cpp",
         "stack": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "climits": "cpp"
     }
 }
