@@ -69,9 +69,15 @@ void sol()
             else j++;
         }
         if (idx == n+m-2 || s[idx] == 'D')
-            for (int l=0; l<m; l++) if (l^j) a[i][j] -= a[i][l];
+            for (int l=0; l<m; l++) 
+            {
+                if (l^j) a[i][j] -= a[i][l];
+            }
         else
-            for (int l=0; l<n; l++) if (l^i) a[i][j] -= a[l][j];
+            for (int l=0; l<n; l++) 
+            {
+                if (l^i) a[i][j] -= a[l][j];
+            }
     }
     
     for (int i=0; i<n; i++)
