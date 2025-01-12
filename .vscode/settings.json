@@ -49,6 +49,7 @@
         "execution": "cpp",
         "stack": "cpp",
         "type_traits": "cpp",
-        "climits": "cpp"
+        "climits": "cpp",
+        "numeric": "cpp"
     }
 }
