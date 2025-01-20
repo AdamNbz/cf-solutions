@@ -52,34 +52,24 @@ const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
 const int mxN = (int)(2e5+1);
 
-
-int a[mxN], rev_a[mxN];
-
 void sol()
 {
     int n; cin >> n;
-    for (int i=1; i<=n; i++) cin >> a[i], rev_a[n-i+1] = a[i];
+    v32 a(n);
+    for (int i=0; i<n; i++) cin >> a[i];
 
-    if (is_sorted(a+1, a+n+1))
+    bool ok=1;
+    for (int i=0; i<n-1; i++)
     {
-        cout << "YES" << el;
-        return;
-    }
-
-    if (is_sorted(rev_a+1, rev_a+n+1)) 
-    {
-        cout << "NO" << el;
-        return;
-    }
-
-    for (int i=1; i<n; i++)
-    {
-        int diff = min(a[i], a[i+1]);
-        a[i] -= diff;
-        a[i+1] -= diff;
-    }
-
-    cout << (is_sorted(a+1, a+n+1) ? "YES":"NO") << el;
+        if (a[i] > a[i+1])
+        {
+        ok = 0;
+        break;
+        }
+        a[i+1] -= a[i];
+    } 
+    cout << (ok ? "YES":"NO") << el;
+    
 }
 
 int32_t main()
