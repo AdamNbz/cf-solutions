@@ -50,36 +50,32 @@ int parity(ull mask) { return __builtin_parityll(mask); }
 
 const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
-const int mxN = (int)(2e5+1);
-
-
-int a[mxN], rev_a[mxN];
 
 void sol()
 {
-    int n; cin >> n;
-    for (int i=1; i<=n; i++) cin >> a[i], rev_a[n-i+1] = a[i];
+    int n, m; cin >> n >> m;
+    v64 a(n), b(m);
+    priority_queue<ll> pq;
+    for (auto &x: a) cin >> x;
+    for (auto &x: b) cin >> x, pq.push(x);
 
-    if (is_sorted(a+1, a+n+1))
+    map<ll, int> cnt;
+    for (auto x: a) cnt[x]++;
+
+    for (int i=0; i<2*n-m; i++)
     {
-        cout << "YES" << el;
-        return;
+        if (pq.empty())
+        {
+            cout << "NO" << el;
+            return;
+        }
+
+        ll crr = pq.top(); pq.pop();
+        if (!cnt[crr]) pq.push(crr/2), pq.push((crr+1)/2);
+        else cnt[crr]--;
     }
 
-    if (is_sorted(rev_a+1, rev_a+n+1)) 
-    {
-        cout << "NO" << el;
-        return;
-    }
-
-    for (int i=1; i<n; i++)
-    {
-        int diff = min(a[i], a[i+1]);
-        a[i] -= diff;
-        a[i+1] -= diff;
-    }
-
-    cout << (is_sorted(a+1, a+n+1) ? "YES":"NO") << el;
+    cout << (pq.empty() ? "YES":"NO") << el;
 }
 
 int32_t main()

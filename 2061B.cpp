@@ -50,36 +50,100 @@ int parity(ull mask) { return __builtin_parityll(mask); }
 
 const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
-const int mxN = (int)(2e5+1);
-
-
-int a[mxN], rev_a[mxN];
 
 void sol()
 {
     int n; cin >> n;
-    for (int i=1; i<=n; i++) cin >> a[i], rev_a[n-i+1] = a[i];
+    map<ll, int> cnt;
+    v64 a(n), b, dist; for (auto &x: a) cin >> x, cnt[x]++;
 
-    if (is_sorted(a+1, a+n+1))
+    for (auto x: cnt) dist.pb(x.fi);
+
+    sort(all(dist));
+    for (auto x: dist)
     {
-        cout << "YES" << el;
+        if (cnt[x] >= 4)
+        {
+            cout << x << " " << x << " " << x << " " << x << el;
+            return;
+        }
+    }
+    
+    for (auto x: dist) if (cnt[x] >= 2) b.pb(x);
+
+    if (sz(b) >= 2)
+    {
+        int x = b[0], y = -1;
+        for (auto i: b) if (i != x) 
+        {
+            y = i;
+            break;
+        }
+
+        if (y != -1) 
+        {
+            cout << x << " " << x << " " << y << " " << y << el;
+            return;
+        }
+    }
+
+    if (b.empty())
+    {
+        cout << -1 << el;
         return;
     }
 
-    if (is_sorted(rev_a+1, rev_a+n+1)) 
+    ll leg = b.back(); cnt[leg] -= 2;
+
+    ll ans1 = -1, ans2 = -1;
+    int i = 0, j = 1;
+    while (i < sz(dist) && j < sz(dist))
     {
-        cout << "NO" << el;
+        if (i == j) 
+        {
+            j++;
+            continue;
+        }
+
+        if (!cnt[dist[i]]) 
+        {
+            i++;
+            continue;
+        }
+
+        if (!cnt[dist[j]])
+        {
+            j++;
+            continue;
+        }
+
+        if (i >= j) 
+        {
+            j = i+1;
+            continue;
+        }
+
+        if (j >= sz(dist)) break;
+
+        if (dist[j]-dist[i] < 2ll*leg)
+        {
+            if (dist[i]!=dist[j]) 
+            {
+                ans1 = dist[i], ans2 = dist[j];
+                break;
+            }
+            j++;
+        }
+        else i++;
+    }
+
+    if (ans1 == -1)
+    {
+        cout << -1 << el;
         return;
     }
 
-    for (int i=1; i<n; i++)
-    {
-        int diff = min(a[i], a[i+1]);
-        a[i] -= diff;
-        a[i+1] -= diff;
-    }
-
-    cout << (is_sorted(a+1, a+n+1) ? "YES":"NO") << el;
+    cout << leg << " " << leg << " " << ans1 << " " << ans2 << el;
 }
 
 int32_t main()

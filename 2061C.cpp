@@ -48,38 +48,31 @@ int ctz(ull mask) { return __builtin_ctzll(mask); }
 int logOf(ull mask) { return 63 - __builtin_clzll(mask); }
 int parity(ull mask) { return __builtin_parityll(mask); }
 
-const ll mod = (ll)(1e9+7);
+const ll mod = 998244353;
 const ll inf = numeric_limits<ll>::max();
-const int mxN = (int)(2e5+1);
-
-
-int a[mxN], rev_a[mxN];
 
 void sol()
 {
     int n; cin >> n;
-    for (int i=1; i<=n; i++) cin >> a[i], rev_a[n-i+1] = a[i];
+    v64 a(n); for (auto &x: a) cin >> x;
 
-    if (is_sorted(a+1, a+n+1))
+    map<ll, int> cntH, cntL;
+    cntH[0] = 1;
+
+    for (int i=0; i<n; i++)
     {
-        cout << "YES" << el;
-        return;
+        int crr = (cntH[a[i]]+cntL[a[i]])%mod;
+        map<ll, int> crrH, crrL;
+        if (crr > 0) crrH[a[i]] = crr;
+        for (auto &x: cntH) crrL[x.fi+1] = (crrL[x.fi+1]+x.se)%mod;
+
+        cntH = move(crrH), cntL = move(crrL);
     }
 
-    if (is_sorted(rev_a+1, rev_a+n+1)) 
-    {
-        cout << "NO" << el;
-        return;
-    }
-
-    for (int i=1; i<n; i++)
-    {
-        int diff = min(a[i], a[i+1]);
-        a[i] -= diff;
-        a[i+1] -= diff;
-    }
-
-    cout << (is_sorted(a+1, a+n+1) ? "YES":"NO") << el;
+    ll ans = 0;
+    for (auto &x: cntH) ans = (ans+x.se)%mod;
+    for (auto &x: cntL) ans = (ans+x.se)%mod;
+    cout << ans << el;
 }
 
 int32_t main()

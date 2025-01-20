@@ -50,36 +50,61 @@ int parity(ull mask) { return __builtin_parityll(mask); }
 
 const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
-const int mxN = (int)(2e5+1);
-
-
-int a[mxN], rev_a[mxN];
 
 void sol()
 {
-    int n; cin >> n;
-    for (int i=1; i<=n; i++) cin >> a[i], rev_a[n-i+1] = a[i];
+    int n, m, k; cin >> n >> m >> k;
 
-    if (is_sorted(a+1, a+n+1))
+    v64 a(n); for (auto &x: a) cin >> x;
+    v64 b(m); for (auto &x: b) cin >> x;
+
+    ll tot = mask(m), fullmask = mask(30)-1;
+    v64 sub(tot), cost(tot, 0);
+
+    for (int i=0; i<tot; i++)
     {
-        cout << "YES" << el;
-        return;
+        ll val = fullmask, cst = 0;
+        for (int j=0; j<m; j++) if (getbit(i, j)) val &= b[j], cst++;
+        sub[i] = val, cost[i] = cst;
     }
 
-    if (is_sorted(rev_a+1, rev_a+n+1)) 
+    ll sumofA = accumulate(all(a), 0ll);
+    v64 inc;
+    inc.reserve(1ll*n*m);
+    for (int i=0; i<n; i++)
     {
-        cout << "NO" << el;
-        return;
+        static v64 best; best.assign(m+1, -1);
+        best[0] = 0;
+
+        for (int j=1; j<tot; j++)
+        {
+            int cst = cost[j];
+            if (cst > m) continue;
+            ll val = a[i] & sub[j], imp = a[i]-val;
+            ckmax(best[cst], imp);
+        }
+
+        for (int j=0; j<=m; j++) if (best[j] < 0) best[j] = 0;
+
+        for (int j=1; j<=m; j++)
+        {
+            ll diff = best[j]-best[j-1];
+            if (diff > 0) inc.pb(diff);
+        }
+    }
+    sort(all(inc), greater<ll>());
+
+    ll sumofImp = 0;
+    for (int i=0; i<sz(inc) && k>0; i++)
+    {
+        ll val = inc[i];
+        if (val <= 0) break;
+        sumofImp += val;
+        k--;
     }
 
-    for (int i=1; i<n; i++)
-    {
-        int diff = min(a[i], a[i+1]);
-        a[i] -= diff;
-        a[i+1] -= diff;
-    }
-
-    cout << (is_sorted(a+1, a+n+1) ? "YES":"NO") << el;
+    cout << sumofA - sumofImp << el;
+    inc.clear();
 }
 
 int32_t main()
