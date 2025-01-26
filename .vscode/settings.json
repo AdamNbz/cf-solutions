@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.sqlbook": "sql",
         "*.ndjson": "jsonl",
         "*.dbclient-js": "javascript",
         "iostream": "cpp",
@@ -50,6 +51,8 @@
         "stack": "cpp",
         "type_traits": "cpp",
         "climits": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "*.tcc": "cpp",
+        "system_error": "cpp"
     }
 }
