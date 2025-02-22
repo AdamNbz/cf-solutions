@@ -1,3 +1,4 @@
+
 /*
 Author : Nguyen Vo Ngoc Bao
 School : University of Information Technology, VNU-HCM
@@ -63,16 +64,30 @@ const ll inf = numeric_limits<ll>::max();
 
 void sol()
 {
-    int n, x; cin >> n >> x;
-    v64 a(n+1), dp(n+2);;
-    for (int i=1; i<=n; i++) cin >> a[i];
-    partial_sum(a.begin()+1, a.end(), a.begin()+1);
-    for (int i=n-1; i>=0; i--)
+    int n; cin >> n;
+    string s; cin >> s; s = " " + s;
+    
+    v32 zeroes, ones;
+    for (int i=1; i<=n; i++) (s[i] == '0' ? zeroes : ones).pb(i);
+    ll ans = 0;
+    int tmp = sz(zeroes);
+    for (int i=n; i>=1; i--)
     {
-        int idx = upper_bound(all(a), a[i]+x) - a.begin();
-        dp[i] = dp[idx] + idx - i - 1;
+        if (sz(ones) && ones.back() >= i)
+        {
+            ans += ones.back(); ones.pop_back();
+            tmp--;
+            if (tmp >= 0) ans -= zeroes[tmp];
+        }
+        if (sz(zeroes) && zeroes.back() >= i)
+        {
+            ans += zeroes.back(); zeroes.pop_back();
+            tmp--;
+            if (tmp >= 0) ans -= zeroes[tmp];
+        }
+        cout << (tmp >= 0 ? ans:-1) << " ";
     }
-    cout << accumulate(all(dp), 0LL) << el;
+    cout << el;
 }
 
 int32_t main()

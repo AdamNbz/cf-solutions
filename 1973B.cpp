@@ -61,18 +61,66 @@ int parity(ull mask) { return __builtin_parityll(mask); }
 const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
 
+bool cmp(v32 a, int mid, int orr)
+{
+    v32 cnt(31);
+    for (int i=0; i<mid; i++)
+    {
+        int crr = a[i];
+        for (int j=30; j>=0; j--) 
+            if (crr >= mask(j)) crr -= mask(j), cnt[j]++;
+    }
+
+    int orr2 = 0;
+    for (int i=0; i<sz(cnt); i++) if (cnt[i]) orr2 += mask(i);
+
+    if (orr2 != orr) return 0;
+
+    for (int i=1; i<sz(a)-mid+1; i++)
+    {
+        int crr = a[i-1];
+        for (int j=30; j>=0; j--) 
+        {
+            if (crr >= mask(j)) 
+            {
+                crr -= mask(j);
+                cnt[j]--;
+                if (!cnt[j]) orr2 -= mask(j);
+            }
+        }
+
+        crr = a[i-1+mid];
+        for (int j=30; j>=0; j--)
+        {
+            if (crr >= mask(j))
+            {
+                crr -= mask(j);
+                cnt[j]++;
+                if (cnt[j] == 1) orr2 += mask(j);
+            }
+        }
+
+        if (orr2 != orr) return 0;
+    }
+    return 1;
+}
+
 void sol()
 {
-    int n, x; cin >> n >> x;
-    v64 a(n+1), dp(n+2);;
-    for (int i=1; i<=n; i++) cin >> a[i];
-    partial_sum(a.begin()+1, a.end(), a.begin()+1);
-    for (int i=n-1; i>=0; i--)
+    int n; cin >> n;
+    v32 a(n); for (auto &x: a) cin >> x;
+
+    int orr = 0;
+    for (auto x: a) orr |= x;
+
+    int l=1, r = n;
+    while (l < r)
     {
-        int idx = upper_bound(all(a), a[i]+x) - a.begin();
-        dp[i] = dp[idx] + idx - i - 1;
+        int m = l+r>>1;
+        if (cmp(a, m, orr)) r = m;
+        else l = m+1;
     }
-    cout << accumulate(all(dp), 0LL) << el;
+    cout << l << el;
 }
 
 int32_t main()

@@ -61,18 +61,34 @@ int parity(ull mask) { return __builtin_parityll(mask); }
 const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
 
+bool cmp(vp64 seg, ll mid)
+{
+    ll crrL = 0, crrR = 0;
+    for (auto x: seg)
+    {
+        crrL = max(crrL-mid, x.fi);
+        crrR = min(crrR+mid, x.se);
+        if (crrR < crrL) return 0;
+    }
+
+    return 1;
+}
+
 void sol()
 {
-    int n, x; cin >> n >> x;
-    v64 a(n+1), dp(n+2);;
-    for (int i=1; i<=n; i++) cin >> a[i];
-    partial_sum(a.begin()+1, a.end(), a.begin()+1);
-    for (int i=n-1; i>=0; i--)
+    int n; cin >> n;
+    vp64 seg(n);
+    for (auto &x: seg) cin >> x.fi >> x.se;
+
+    ll l=0, r=1e9, k=-1;
+    while (l <= r)
     {
-        int idx = upper_bound(all(a), a[i]+x) - a.begin();
-        dp[i] = dp[idx] + idx - i - 1;
+        ll m = l+r>>1;
+        if (cmp(seg, m)) k = m, r = m-1;
+        else l = m+1;
     }
-    cout << accumulate(all(dp), 0LL) << el;
+
+    cout << k << el;
 }
 
 int32_t main()
