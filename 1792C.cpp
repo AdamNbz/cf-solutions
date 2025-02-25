@@ -66,14 +66,14 @@ void sol()
 {
     int n; cin >> n;
     v32 a(n); for (auto &x: a) cin >> x;
-    ll mx = 0, ans = 0, pref = 0;
-    for (int i=0; i<n; i++)
-    {
-        if (a[i] < mx) pref += a[i];
-        else pref += mx, mx = a[i];
-        if (pref == mx) ans++;
-    }
-    cout << ans << '\n';
+    
+    v32 pos(n+1);
+    for (int i=0; i<n; i++) pos[a[i]] = i;
+
+    int l = n+1>>1, r = n+2>>1;
+    while (l > 0 && (l == r || (pos[l+1] > pos[l] && pos[r] > pos[r-1]))) l--, r++;
+
+    cout << ((n-r+l+1)>>1) << el;
 }
 
 nbzzz()

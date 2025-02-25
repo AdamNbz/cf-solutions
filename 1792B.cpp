@@ -64,16 +64,16 @@ const ll inf = numeric_limits<ll>::max();
 
 void sol()
 {
-    int n; cin >> n;
-    v32 a(n); for (auto &x: a) cin >> x;
-    ll mx = 0, ans = 0, pref = 0;
-    for (int i=0; i<n; i++)
+    int a[5];
+    for (int i=1; i<5; i++) cin >> a[i];
+    
+    if (!a[1])
     {
-        if (a[i] < mx) pref += a[i];
-        else pref += mx, mx = a[i];
-        if (pref == mx) ans++;
+        cout << 1 << el;
+        return;
     }
-    cout << ans << '\n';
+
+    cout << a[1] + min(a[2], a[3])*2 + min(a[1]+1, abs(a[2]-a[3])+a[4]) << el;
 }
 
 nbzzz()
