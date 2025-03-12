@@ -1,38 +1,43 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
-void Solve()
+using namespace std;
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
     int n, k; cin >> n >> k;
     string s; cin >> s;
-    int l[27] = {0}, u[27] = {0};
-    for (int i=0; i<n; i++) if (isupper(s[i])) u[s[i] - 'A']++;
-    else l[s[i]-'a']++;
-    int ans = 0;
+    
+    int l[26] = {0}, u[26] = {0};
+    for (auto x: s) if (islower(x)) l[x-'a']++; else u[x-'A']++;
+
+    ll ans = 0;
     for (int i=0; i<26; i++)
     {
         if (l[i] == u[i]) ans += l[i];
-        else if (l[i] > u[i])
+        else 
         {
-            ans += u[i];
-            ans += min(k, (l[i] - u[i])/2);
-            k -= min(k, (l[i] - u[i])/2);
-        }
-        else
-        {
-            ans += l[i];
-            ans += min(k, (u[i] - l[i])/2);
-            k -= min(k, (u[i] - l[i])/2);
+            ans += min(l[i], u[i]);
+            ans += min(k, (abs(l[i]-u[i]))/2);
+            k -= min(k, (abs(l[i]-u[i]))/2);
         }
     }
-    cout << ans << endl;
+    cout << ans << '\n';
 }
 
-int main()
+signed main()
 {
-    ios_base::sync_with_stdio(0); cin.tie(NULL);
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
     int t; cin >> t;
-    while (t--)
-        Solve();
+    while (t--) skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

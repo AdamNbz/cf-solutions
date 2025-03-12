@@ -14,24 +14,8 @@ const ll inf = numeric_limits<ll>::max();
 
 void skibidi()
 {
-    int n; cin >> n;
-    vector<int> a(n); for (auto &x: a) cin >> x;
-
-    if (n == 2) 
-    {
-        cout << min(a[0], a[1]) << '\n';
-        return;
-    }
-
-    int ans = 0;
-    for (int i=0; i<n-2; i++)
-    {
-        vector<int> crr;
-        for (int j=0; j<3; j++) crr.push_back(a[i+j]);
-        sort(crr.begin(), crr.end());
-        ckmax(ans, crr[1]);
-    }
-    cout << ans << '\n';
+    string s; cin >> s;
+    cout << (s[0]-'a')*25 + (s[1]-'a' + (s[0] >= 'b' && s[0] >= s[1] ? 1 : 0)) << '\n';
 }
 
 signed main()
