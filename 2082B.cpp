@@ -88,7 +88,7 @@ void sol()
         mn = (mn+1ll)/2;
     }
 
-    cout << mn << " " << mx << el;
+    cout << mx << " " << mn << el;
 }
 
 nbzzz()
