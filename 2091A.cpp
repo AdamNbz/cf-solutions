@@ -74,27 +74,18 @@ void sol()
     }
     
     v32 cnt(6, 0);
-    cnt[0] = 3;
-    cnt[1] = 1;
-    cnt[3] = 1;
-    cnt[2] = 2;
-    cnt[5] = 1;
     bool ok = 0;
     for (int i=0; i<n; i++)
     {
-        if (!cnt[0] && !cnt[1] && !cnt[2] && !cnt[3] && !cnt[5])
+        cnt[a[i]]++;
+        if (cnt[0] >= 3 && cnt[1] >= 1 && cnt[2] >= 2 && cnt[3] >= 1 && cnt[5] >= 1 && !ok)
         {
             ok = 1;
-            cout << i << el;
-            return;
+            cout << i+1 << el;
         }
-        if (cnt[a[i]] > 0) cnt[a[i]]--;
     }
 
-    if (!ok)
-    {
-        cout << (cnt[0] || cnt[1] || cnt[2] || cnt[3] || cnt[5] ? 0 : n) << el;
-    }
+    if (!ok) cout << 0 << el;
 }
 
 nbzzz()
