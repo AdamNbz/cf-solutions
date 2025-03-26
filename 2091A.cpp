@@ -73,7 +73,7 @@ void sol()
         return;
     }
     
-    v32 cnt(6, 0);
+    v32 cnt(10, 0);
     bool ok = 0;
     for (int i=0; i<n; i++)
     {
