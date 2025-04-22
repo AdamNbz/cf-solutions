@@ -1,28 +1,34 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
-int main(){
-	string s;
-	getline(cin, s);
-	int countLower=0, countUpper=0;
-	for (int i=0; i<s.length(); i++){
-		if (s[i] >= 'a' && s[i] <= 'z') {
-			++countLower;
-		}
-		else if (s[i] >= 'A' && s[i] <= 'Z') {
-			++countUpper;
-		}
+using namespace std;
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
+{
+	string s; cin >> s;
+	int up = 0, low = 0;
+	for (auto x: s)
+	{
+		if (isupper(x)) up++;
+		else low++;
 	}
-	if (countLower < countUpper) {
-		for (int i=0; i<s.length(); i++) {
-			if (s[i] >= 'a' && s[i] <= 'z') s[i] -= 32;
-		}
-	}
-	else {
-		for (int i=0; i<s.length(); i++) {
-			if (s[i] >= 'A' && s[i] <= 'Z') s[i] += 32;
-		}
-	}
+	if (up > low) transform(s.begin(), s.end(), s.begin(), ::toupper);
+	else transform(s.begin(), s.end(), s.begin(), ::tolower);
 	cout << s;
+}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+	skibidi();
+	cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

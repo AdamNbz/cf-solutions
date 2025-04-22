@@ -1,19 +1,33 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
-int main(){
-	int n, k;
-	cin >> n >> k;
-	vector <int> a;
-	for (int i=0; i<n; i++){
-		int x;
-		cin >> x;
-		a.push_back(x);
-	}
-	int ans = n;
-	for (int i=0; i<n; i++){
-		if (a[i] == 0 || a[i] < a[k-1]) ans--;
+using namespace std;
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
+{
+	int n, k; cin >> n >> k;
+	vector<int> a(n); for (auto &x: a) cin >> x;
+	int ans = 0;
+	for (int i=0; i<n; i++)
+	{
+		if (!a[i] || a[i] < a[k-1]) continue;
+		ans += (a[i] >= a[k-1]);
 	}
 	cout << ans;
+}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+	skibidi();
+	cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

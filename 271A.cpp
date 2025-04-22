@@ -1,31 +1,39 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
-bool distint(int y)
+using namespace std;
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
-    set <int> distint;
-    while (y>0)
+    int n; cin >> n;
+    bool ok = 1;
+    n++;
+    while (1)
     {
-        distint.insert(y%10);
-        y /= 10;
+        int crr = n;
+        set<int> st;
+        while (crr) st.insert(crr%10), crr /= 10;
+        if (st.size() == 4) 
+        {
+            cout << n;
+            return;
+        }
+        n++;
     }
-    if (distint.size() != 4) return 0;
-    return 1;
 }
 
-int main()
+signed main()
 {
-    int y; cin >> y;
-    y++;
-    bool check = 1;
-    while (check)
-    {
-        if (distint(y)) 
-        {
-            cout << y;
-            check = 0;
-        }
-        y++;
-    }
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+    skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }
