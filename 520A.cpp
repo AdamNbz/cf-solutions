@@ -1,24 +1,30 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
-int main()
+using namespace std;
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
-	short n;
-	cin >> n;
-	string s;
-	getline(cin, s);
-	getline(cin, s);
-	transform(s.begin(),s.end(),s.begin(),::tolower);
-	sort (s.begin(),s.end());
-	set <int> c;
-	long tong=0;
-	for (int i=0; i<s.length(); i++){
-		c.insert((int)s[i]);
-	}
-	if (c.size() != 26) cout << "NO";
-	else cout << "YES";
+	int n; cin >> n;
+	string s; cin >> s;
+	set<char> st; 
+	transform(s.begin(), s.end(), s.begin(), ::tolower);
+	for (auto c: s) st.insert(c);
+	cout << (st.size() == 26 ? "YES" : "NO");
+}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+	skibidi();
+	cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

@@ -1,52 +1,31 @@
 #include <bits/stdc++.h>
-#define pb push_back
-#define f0(i,n) for(int i=0;i<n;i++)
-#define f1(i,n) for(int i=1;i<=n;i++)
-#define all(x) x.begin(),x.end()
-#define el cout<<"\n"
-#define MAXN 1000006
-#define MOD 1000000007
-#define FI " .INP"
-#define FO " .OUT"
 
-typedef long long ll;
-typedef long double ld;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
 using namespace std;
+using ll = long long;
 
-//template giai de hsgtp
-void Nhap(){
-	
-}
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
 
-void Solve(){
-	
-}
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
 
-void Xuat(){
-	
-}
-
-//Template cho codeforces
-/*void runCase(){
-	
-}*/
-
-int main(){
-	ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    //freopen(" ", "r", stdin);
-    //freopen(" ", "w", stdout);
-    vector <ll> s;
-    for (int i=0; i<4; i++){
-    	int tmp;
-    	cin >> tmp;
-    	s.pb(tmp);
+void skibidi()
+{
+	set<int> st;
+	for (int i=0; i<4; i++) 
+	{
+		int x; cin >> x;
+		st.insert(x);
 	}
-	ll ans=0;
-	for (int i=0; i<4; i++){
-		if (s[i] == s[i+1]) ans++;
-	}
-	cout << ans;
+	cout << 4-st.size();
+}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+	skibidi();
+	cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

@@ -1,27 +1,38 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
-int main()
+using namespace std;
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
-	int n; cin >> n;
-	vector <int> cnt(n+1);
-	int t=2;
-	while (t--)
+	int n, p, q; cin >> n >> p;
+	set<int> st;
+	for (int i=0; i<p; i++) 
 	{
 		int x; cin >> x;
-		for (int i=1; i<=x; i++)
-		{
-			int tmp;
-			cin >> tmp;
-			cnt[tmp]++;
-		}
+		st.insert(x);
 	}
-	bool ans = true;
-	for (int i=1; i<=n; i++)
+	cin >> q;
+	for (int i=0; i<q; i++)
 	{
-		if (cnt[i] == 0) ans = false;
+		int x; cin >> x;
+		st.insert(x);
 	}
-	if (ans) cout << "I become the guy.";
-	else cout << "Oh, my keyboard!";
+	cout << (st.size() == n ? "I become the guy." : "Oh, my keyboard!");
+}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+	skibidi();
+	cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

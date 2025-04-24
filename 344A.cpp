@@ -1,24 +1,30 @@
 #include <bits/stdc++.h>
- 
+
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+
 using namespace std;
- 
-int main()
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    long n;
-    cin >> n;
-    vector <int> magnet;
-    for (long i=0; i<n; i++){
-        int tmp;
-        cin >> tmp;
-        magnet.push_back(tmp);
-    }
-    int ans=0, i=0;
-    while (i<n){
-        if (magnet[i] != magnet[i+1]) ans++;
-        ++i;
-    }
+    int n; cin >> n;
+    vector<string> a(n);
+    for (int i=0; i<n; i++) cin >> a[i];
+    int ans = 1;
+    for (int i=0; i<n-1; i++) ans += (a[i] != a[i+1]);
     cout << ans;
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+    skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

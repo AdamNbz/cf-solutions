@@ -1,28 +1,32 @@
 #include <bits/stdc++.h>
- 
+
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+
 using namespace std;
- 
-struct Room{
-    int p;
-    int q;
-};
- 
-int main()
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
-    int n;
-    cin >> n;
-    vector <Room> A;
-    A.resize(n);
-    for (int i=0; i<n; i++){
-        cin >> A[i].p >> A[i].q;
-    }
-    int ans=0;
-    for (int i=0; i<n; i++){
-        if (A[i].p != A[i].q) {
-            int tmp = A[i].q - A[i].p;
-            if (tmp >= 2) ans++;
-        }
+    int n; cin >> n;
+    int ans = 0;
+    for (int i=0; i<n; i++)
+    {
+        int x, y; cin >> x >> y;
+        ans += (abs(x-y)>=2);
     }
     cout << ans;
-    return 0;
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+    skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

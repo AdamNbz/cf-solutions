@@ -1,34 +1,32 @@
 #include <bits/stdc++.h>
-#define pb push_back
-#define ll long long
-#define ld long double
-#define f0(i,n) for(int i=0; i<n; i++)
-#define f1(i,n) for(int i=1; i<=n; i++)
 
-const int MAXN = 1e8;
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
 using namespace std;
+using ll = long long;
 
-void solve(int &ans, string &s){
-	getline(cin, s);
-	if (s == "Tetrahedron") ans += 4;
-	if (s == "Cube") ans += 6;
-	if (s == "Octahedron") ans += 8;
-	if (s == "Dodecahedron") ans += 12;
-	if (s == "Icosahedron") ans += 20;
-}
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
 
-int main(){
-	ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    int n;
-    cin >> n;
-    int ans=0;
-    string s;
-    getline(cin, s);
-    f0(i,n) {
-    	solve(ans, s);
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
+{
+	int n; cin >> n;
+	int ans = 0;
+	for (int i=0; i<n; i++)
+	{
+		string s; cin >> s;
+		ans += (s[0] == 'T' ? 4 : s[0] == 'C' ? 6 : s[0] == 'O' ? 8 : s[0] == 'D' ? 12 : s[0] == 'I' ? 20 : 0);
 	}
 	cout << ans;
+}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+	skibidi();
+	cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

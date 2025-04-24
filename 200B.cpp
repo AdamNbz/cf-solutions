@@ -1,20 +1,32 @@
 #include <bits/stdc++.h>
-#pragma GCC optimize ("03")
+
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
 using namespace std;
+using ll = long long;
 
-int main()
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
-    ios_base::sync_with_stdio(0); cin.tie(NULL);
     int n; cin >> n;
-    double p[n];
-    double sum=0;
-    for (int i=0; i<n; i++)
+    double ans = 0;
+    for (int i=0; i<n; i++) 
     {
-        cin >> p[i];
-        p[i] = p[i]/100;
-        sum += p[i];
+        double a; cin >> a;
+        ans += a;
     }
-    cout << fixed << setprecision(12) << sum*100/n;
+    cout << fixed << setprecision(12) << ans/n;
+}
 
+signed main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+    skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }
