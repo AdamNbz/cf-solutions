@@ -64,7 +64,8 @@ const ll inf = numeric_limits<ll>::max();
 
 void sol()
 {
-    
+    int a, b, c; cin >> a >> b >> c;
+    cout << (!((a+b+c)%3) && (a+b+c)/3 >= b ? "YES" : "NO") << el;
 }
 
 nbzzz()

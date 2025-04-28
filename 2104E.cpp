@@ -64,23 +64,51 @@ const ll inf = numeric_limits<ll>::max();
 
 void sol()
 {
-    int n; cin >> n;
-    v64 a(n+2), pref(n+2), suf(n+2);
-    for (int i=1; i<=n; i++) cin >> a[i];
-
-    pref[0] = 0;
-    suf[n+1] = 0;
-    for (int i=1; i<=n; i++) pref[i] = max(pref[i-1], a[i]);
-    for (int i=n; i>=1; i--) suf[i] = suf[i+1] + a[i];
+    int n, k; cin >> n >> k;
+    string s; cin >> s;
+    int q; cin >> q;
     
-    for (int i=1; i<=n; i++) cout << max(suf[n-i+1], pref[n-i] + suf[n-i+2]) << " ";
-    cout << el;
+    vector<array<int, 26>> nxt(n+2);
+    for (int i=0; i<k; i++) nxt[n][i] = n+1, nxt[n+1][i] = n+1;
+
+    for (int i=n-1; i>=0; i--) 
+    {
+        for (int j=0; j<k; j++) nxt[i][j] = nxt[i+1][j];
+        nxt[i][s[i]-'a'] = i+1;
+    }
+
+    v32 dp(n+2, 0);
+    dp[n+1] = 0;
+    for (int i=n; i>=0; i--)
+    {
+        dp[i] = INT_MAX;
+        for (int j=0; j<k; j++) if (nxt[i][j] == n+1) 
+        {
+            dp[i] = 1;
+            break;
+        }
+        if (dp[i] != 1) 
+        {
+            for (int j=0; j<k; j++) ckmin(dp[i], 1+dp[nxt[i][j]]);
+        }
+    }
+
+    while (q--)
+    {
+        int idx = 0;
+        string t; cin >> t;
+        for (auto c: t) 
+        {
+            idx = nxt[idx][c-'a'];
+            if (idx == n+1) break;
+        }
+        cout << (idx == n+1 ? 0 : dp[idx]) << el;
+    }
 }
 
 nbzzz()
 {
     io();
-    int t; cin >> t;
-    while (t--) sol();
+    sol();
     cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

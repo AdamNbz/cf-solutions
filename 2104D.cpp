@@ -61,25 +61,47 @@ int parity(ull mask) { return __builtin_parityll(mask); }
 
 const ll mod = (ll)(1e9+7);
 const ll inf = numeric_limits<ll>::max();
+const int MxSieve = (int)(8e6);
+const int MxN = (int)(4e5);
+
+v64 pref_primes;
+v32 primes;
+
+void precalc() 
+{
+    vb comp(MxSieve+1, 0);
+    primes.reserve(MxN+1);
+    for(int i = 2; i<=MxSieve && sz(primes)<MxN; i++)
+    {
+        if(!comp[i])
+        {
+            primes.pb(i);
+            if (1ll*i*i<=MxSieve)
+                for(int j = i*i; j<=MxSieve; j+=i) comp[j] = 1;
+        }
+    }
+
+    pref_primes.assign(MxN+1, 0);
+    for(int i=1; i<=MxN; i++) pref_primes[i] = pref_primes[i-1] + primes[i-1];
+}
 
 void sol()
 {
     int n; cin >> n;
-    v64 a(n+2), pref(n+2), suf(n+2);
-    for (int i=1; i<=n; i++) cin >> a[i];
+    v64 a(n); for (auto &x: a) cin >> x;
 
-    pref[0] = 0;
-    suf[n+1] = 0;
-    for (int i=1; i<=n; i++) pref[i] = max(pref[i-1], a[i]);
-    for (int i=n; i>=1; i--) suf[i] = suf[i+1] + a[i];
-    
-    for (int i=1; i<=n; i++) cout << max(suf[n-i+1], pref[n-i] + suf[n-i+2]) << " ";
-    cout << el;
-}
+    sort(all(a), greater<ll>());
+    v64 pref(n+1, 0);
+    for (int i=0; i<n; i++) pref[i+1] = pref[i] + a[i];
+    int ans = 0;
+    for (int i=1; i<=n; i++) if (pref[i] >= pref_primes[i]) ans = i;
+    cout << n-ans << el;
+}   
 
 nbzzz()
 {
     io();
+    precalc();
     int t; cin >> t;
     while (t--) sol();
     cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";

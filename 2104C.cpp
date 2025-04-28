@@ -64,7 +64,25 @@ const ll inf = numeric_limits<ll>::max();
 
 void sol()
 {
+    int n; cin >> n;
+    string s; cin >> s;
+    int cnta = count(all(s), 'A'), cntb = count(all(s), 'B');
     
+    bool ok = 0;
+    if (n == 2) ok = (s[0] == 'A');
+    else if (n == 3) ok = (cnta >= 2);
+    else
+    {
+        if (cnta == n-1) ok = 1;
+        else
+        {
+            if (s[n-1] == 'A') 
+            {
+                if (s[0] == 'A' || s[n-2] == 'A') ok = 1;
+            }
+        }
+    }
+    cout << (ok ? "Alice":"Bob") << el;
 }
 
 nbzzz()
