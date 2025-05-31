@@ -1,8 +1,8 @@
 {
   "files.associations": {
+    "*.dbclient-js": "javascript",
     "*.sqlbook": "sql",
     "*.ndjson": "jsonl",
-    "*.dbclient-js": "javascript",
     "iostream": "cpp",
     "random": "cpp",
     "bitset": "cpp",
@@ -54,6 +54,7 @@
     "numeric": "cpp",
     "*.tcc": "cpp",
     "system_error": "cpp",
-    "iomanip": "cpp"
+    "iomanip": "cpp",
+    "complex": "cpp"
   }
 }
