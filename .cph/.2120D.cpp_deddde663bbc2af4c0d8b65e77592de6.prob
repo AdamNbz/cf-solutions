@@ -1,0 +1,1 @@
+{"name":"Local: 2120D","url":"c:\\Users\\Admin\\OneDrive\\Documents\\cf-solutions\\2120D.cpp","tests":[{"id":1750523094394,"input":"3\n1 1 5\n2 2 2\n90000 80000 70000\n","output":"1 1\n3 7\n299929959 603196135\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Admin\\OneDrive\\Documents\\cf-solutions\\2120D.cpp","group":"local","local":true}
