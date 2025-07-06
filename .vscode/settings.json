@@ -55,6 +55,7 @@
     "*.tcc": "cpp",
     "system_error": "cpp",
     "iomanip": "cpp",
-    "complex": "cpp"
+    "complex": "cpp",
+    "locale": "cpp"
   }
 }
