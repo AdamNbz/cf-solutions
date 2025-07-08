@@ -1,1 +1,0 @@
-{"name":"Local: 2124B","url":"/Users/home/Documents/File Code/C++/Codeforces/cf-solutions/2124B.cpp","tests":[{"id":1751813428023,"input":"3\n2\n1 2\n3\n1 2 3\n4\n3 0 2 3\n","output":"2\n2\n3\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/home/Documents/File Code/C++/Codeforces/cf-solutions/2124B.cpp","group":"local","local":true}
