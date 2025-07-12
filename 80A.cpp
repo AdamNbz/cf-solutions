@@ -1,33 +1,41 @@
 #include <bits/stdc++.h>
 
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+
 using namespace std;
+using ll = long long;
 
-vector <int> primes;
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
 
-bool isPrime(int n)
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+bool is_prime(int n)
 {
-    for (int i=2; i*i<=n; i++)
-    {
-        if (n%i==0) return 0;
-    }
+    for (int i=2; i*i<=n; i++) if (n%i==0) return 0;
     return n>=2;
 }
 
-int main()
+void skibidi()
 {
     int n, m; cin >> n >> m;
-    for (int i=2; i<=50; i++)
+    vector<int> primes;
+    for (int i=2; i<=50; i++) if (is_prime(i)) primes.push_back(i);
+
+    auto idx = lower_bound(primes.begin(), primes.end(), n)-primes.begin();
+    if (primes[idx+1] != m) 
     {
-        if (isPrime(i)) primes.push_back(i);
+        cout << "NO";
+        return;
     }
-    auto it = find(primes.begin(), primes.end(), n), it2 = find(primes.begin(), primes.end(), m);
-    if (it2 != primes.end())
-    {
-        if (it2-primes.begin()-1 == it-primes.begin())
-        {
-            cout << "YES";
-        }
-        else cout << "NO";
-    }
-    else cout << "NO";
+    cout << "YES";
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+    skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

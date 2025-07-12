@@ -1,28 +1,36 @@
 #include <bits/stdc++.h>
-#pragma GCC optimize ("03")
+
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 
 using namespace std;
+using ll = long long;
 
-int main()
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
 {
-    ios_base::sync_with_stdio(0); cin.tie(NULL);
     int n; cin >> n;
-    int a[n+1];
-    for (int i=1; i<=n; i++) cin >> a[i];
-    int s1=0, s2=0, l=1, r=n, i=1;
+    vector<int> a(n); for (auto &x: a) cin >> x;
+
+    bool turn = 0;
+    int l = 0, r = n-1, s1 = 0, s2 = 0;
     while (l <= r)
     {
-        if (i%2==1)
-        {
-            if (a[l] >= a[r]) s1 += a[l++];
-            else s1 += a[r--];
-        }
-        else
-        {
-            if (a[l] >= a[r]) s2 += a[l++];
-            else s2 +=  a[r--];
-        }
-        i++;
+        if (turn & 1) s1 += (a[l] > a[r]) ? a[l++] : a[r--];
+        else s2 += (a[l] >= a[r]) ? a[l++] : a[r--];
+        turn ^= 1;
     }
-    cout << s1 << " " << s2;
+    cout << s2 << ' ' << s1;
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+    skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }

@@ -1,54 +1,28 @@
 #include <bits/stdc++.h>
-#define pb push_back
-#define f0(i,n) for(int i=0;i<n;i++)
-#define f1(i,n) for(int i=1;i<=n;i++)
-#define all(x) x.begin(),x.end()
-#define el cout<<"\n"
-#define MAXN 1000006
-#define MOD 1000000007
-#define FI " .INP"
-#define FO " .OUT"
- 
-typedef long long ll;
-typedef long double ld;
- 
+
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+
 using namespace std;
- 
-//template giai de hsgtp
-void Nhap(){
-	
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
+{
+	int a[3]; for (int i=0; i<3; i++) cin >> a[i];
+	sort(a, a+3);
+	cout << a[1] << '\n';
 }
- 
-void Solve(){
-	
-}
- 
-void Xuat(){
-	
-}
- 
-//Template cho codeforces
-void runCase(){
-	vector <int> a;
-	for (int i=0; i<3; i++){
-		int tmp;
-		cin >> tmp;
-		a.pb(tmp);
-	}
-	sort(all(a));
-	int ans = a[1];
-	cout << ans; el;
-}
- 
-int main(){
-	ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    //freopen(" ", "r", stdin);
-    //freopen(" ", "w", stdout);
-    int t;
-    cin >> t;
-    while (t--){
-    	runCase();
-	}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+	int t; cin >> t;
+	while (t--) skibidi();
+	cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }
