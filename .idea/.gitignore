@@ -1,3 +1,5 @@
+.cph/
+.vscode/
 # Default ignored files
 /shelf/
 /workspace.xml

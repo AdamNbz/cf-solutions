@@ -1,20 +1,28 @@
 #include <bits/stdc++.h>
-#define el cout<<"\n"
+
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+
 using namespace std;
-string s;
-void runCase(){
-    getline(cin, s);
-    if (s == "YES" || s == "yES" || s == "yeS" || s == "yes" || s == "Yes" || s == "YEs" || s == "YeS" || s == "yEs") cout << "YES";
-    else cout << "NO";
-    el;
+using ll = long long;
+
+template<typename T> void ckmin(T& x, T y) {if (x>y) x = y;}
+template<typename T> void ckmax(T& x, T y) {if (x<y) x = y;}
+
+const ll mod = (ll)(1e9+7);
+const ll inf = numeric_limits<ll>::max();
+
+void skibidi()
+{
+    string s; cin >> s;
+    for (auto &x: s) x = tolower(x);
+    cout << (s == "yes" ? "YES" : "NO") << '\n';
 }
 
-
-int main(){
-    int t;
-    cin >> t;
-    getline(cin, s);
-    while (t--){
-        runCase();
-    }
+signed main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+    int t; cin >> t;
+    while (t--) skibidi();
+    cerr << "\nTime elapsed: " << 1000*clock()/CLOCKS_PER_SEC << "ms\n";
 }
